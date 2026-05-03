@@ -44,3 +44,10 @@ resource "azurerm_storage_account" "st" {
   depends_on = [ azurerm_subnet.sb ]
 }
 
+resource "azurerm_storage_container" "container" {
+  for_each = var.container_name
+  name                  = each.value
+  storage_account_id    = azurerm_storage_account.st.id
+  container_access_type = "private"
+}
+
